@@ -18,7 +18,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="StE-UZ-PYA">
                                 <rect key="frame" x="20" y="69" width="374" height="150"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.78431372549019607" green="0.39215686274509803" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NDp-iE-FCh">
                                 <rect key="frame" x="20" y="259" width="374" height="110"/>
@@ -47,6 +47,9 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1bm-Pd-h4C">
                                                 <rect key="frame" x="116" y="0.0" width="260" height="31"/>
                                                 <color key="minimumTrackTintColor" red="0.92807525400000002" green="0.13446399570000001" blue="0.042040891949999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="91v-xd-MeL"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -74,6 +77,9 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DIu-J6-HFR">
                                                 <rect key="frame" x="116" y="0.0" width="260" height="31"/>
                                                 <color key="minimumTrackTintColor" systemColor="systemGreenColor"/>
+                                                <connections>
+                                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="vhJ-Uf-IOR"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -101,6 +107,9 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ymc-9j-4fH">
                                                 <rect key="frame" x="116" y="0.0" width="260" height="31"/>
                                                 <color key="minimumTrackTintColor" red="0.070206038653850555" green="0.0049490923993289471" blue="0.9936639666557312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="qSt-uG-ee3"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -119,6 +128,15 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="StE-UZ-PYA" secondAttribute="trailing" constant="20" id="vz0-gj-EGE"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="blueColorIndexLabel" destination="pbI-wl-V3C" id="Xok-jp-F2M"/>
+                        <outlet property="blueColorSlider" destination="Ymc-9j-4fH" id="LTH-kQ-Ln0"/>
+                        <outlet property="colorRect" destination="StE-UZ-PYA" id="C1p-sw-4m1"/>
+                        <outlet property="greenColorIndexLabel" destination="EBe-wa-VZB" id="1PR-71-alM"/>
+                        <outlet property="greenColorSlider" destination="DIu-J6-HFR" id="67e-NG-whx"/>
+                        <outlet property="redColorIndexLabel" destination="pil-uA-rRB" id="pyQ-Zu-fOi"/>
+                        <outlet property="redColorSlider" destination="1bm-Pd-h4C" id="vJ5-ls-UVM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -126,9 +144,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
