@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var greenColorSlider: UISlider!
     @IBOutlet weak var blueColorSlider: UISlider!
    
-    private var bgColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
+    private var bgColor = UIColor(red: 200, green: 100, blue: 50, alpha: 1)
     
     
     override func viewDidLoad() {
@@ -27,18 +27,23 @@ class ViewController: UIViewController {
         
         colorRect.layer.cornerRadius = 20
         colorRect.backgroundColor = bgColor
+        //Не понимаю почему задаю цвет, а он затирает тот, что установлен в IB и тот, что устанавливаю я кодом и ставит все равно белый при загрузке приложения. Можете объяснить, что я тут сделал не так?
         
         setupColorSlider(for: redColorSlider)
         setupColorSlider(for: greenColorSlider)
         setupColorSlider(for: blueColorSlider)
-        
     }
     
     @IBAction func sliderAction(_ sender: UISlider) {
         let currColor = UIColor(
             red: CGFloat(redColorSlider.value),
-            green: CGFloat(greenColorSlider.value), blue: CGFloat(blueColorSlider.value), alpha: 1)
+            green: CGFloat(greenColorSlider.value),
+            blue: CGFloat(blueColorSlider.value),
+            alpha: 1
+        )
+        
         colorRect.backgroundColor = currColor
+        
         switch sender {
             case redColorSlider:
                 redColorIndexLabel.text = String(format: "%.2f", sender.value)
@@ -55,17 +60,14 @@ class ViewController: UIViewController {
         
         switch slider {
             case redColorSlider:
-            redColorSlider.value = Float(colorComponents[0] / 255)
+            slider.value = Float(colorComponents[0] / 255)
             redColorIndexLabel.text = String(format: "%.2f", colorComponents[0] / 255)
-            print("Red: \(colorComponents[0])")
         case greenColorSlider:
-            greenColorSlider.value = Float(colorComponents[1] / 255)
+            slider.value = Float(colorComponents[1] / 255)
             greenColorIndexLabel.text = String(format: "%.2f", colorComponents[1] / 255)
-            print("Greed: \(colorComponents[1])")
         default:
-            blueColorSlider.value = Float(colorComponents[2] / 255)
+            slider.value = Float(colorComponents[2] / 255)
             blueColorIndexLabel.text = String(format: "%.2f", colorComponents[2] / 255)
-            print("Blue: \(colorComponents[2])")
         }
     }
     
