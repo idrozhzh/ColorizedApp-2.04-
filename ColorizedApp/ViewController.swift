@@ -35,6 +35,10 @@ class ViewController: UIViewController {
             alpha: 1
         )
         
+        sliderIndexLabelsSetup()
+    }
+    
+    private func sliderIndexLabelsSetup() {
         redColorIndexLabel.text = String(format: "%.2f", redColorSlider.value)
         greenColorIndexLabel.text = String(format: "%.2f", greenColorSlider.value)
         blueColorIndexLabel.text = String(format: "%.2f", blueColorSlider.value)
