@@ -30,7 +30,15 @@ class MainViewController: UIViewController {
         else { return }
         
         colorSetupVC.currentColor = view.backgroundColor
+        colorSetupVC.delegate = self
     }
     
 
+}
+
+//MARK: ColorSetupViewControllerDelegate
+extension MainViewController: ColorSetupViewControllerDelegate {
+    func saveColorSetup(with color: UIColor) {
+        view.backgroundColor = color
+    }
 }

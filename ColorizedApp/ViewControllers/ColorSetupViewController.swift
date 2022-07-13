@@ -8,20 +8,6 @@
 import UIKit
 
 class ColorSetupViewController: UIViewController {
-    
-    /*
-     Осталось сделать
-     1. Кнопка Done
-     2. Подписать мэинВС под протокол для передачи данных
-     3. Реализовать метод передачи данных
-     4. Настроить клавиатуру для ТФ
-     5. Добавить кнопку Done клавиатуре
-     6. Настроить сворачивание клавиатуры
-     7. Переписать функцию с текстовых полей по ТЗ
-     8. Проверить работу приложения
-     9. Почистить код
-     
-     */
 
     @IBOutlet weak var colorRectView: UIView!
     
@@ -37,16 +23,26 @@ class ColorSetupViewController: UIViewController {
     @IBOutlet weak var greenColorTF: UITextField!
     @IBOutlet weak var blueColorTF: UITextField!
     
+    @IBOutlet weak var doneButton: UIButton!
     
     var currentColor: UIColor!
+    var delegate: ColorSetupViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         colorRectView.layer.cornerRadius = 20
-        
         colorRectView.backgroundColor = currentColor
         viewSetup()
+        
+        doneButton.layer.cornerRadius = 10
+        
+        addToolbar()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super .touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     @IBAction func sliderAction() {
@@ -62,21 +58,10 @@ class ColorSetupViewController: UIViewController {
         
         currentColor = colorRectView.backgroundColor
     }
-
-    @IBAction func textFieldAction(_ sender: UITextField) {
-        guard let textFieldValue = sender.text else { return }
-        guard let floatTFValue = Float(textFieldValue) else { return }
-        
-        switch sender {
-        case redColorTF:
-            redColorSlider.value = floatTFValue
-        case greenColorTF:
-            greenColorSlider.value = floatTFValue
-        default:
-            blueColorSlider.value = floatTFValue
-        }
-        
-        sliderAction()
+    
+    @IBAction func doneButtonAction() {
+        delegate.saveColorSetup(with: currentColor)
+        dismiss(animated: true)
     }
 }
 
@@ -112,4 +97,54 @@ extension ColorSetupViewController {
         sliderIndexLabelsSetup()
         sliderTextFieldsSetup()
     }
+    
+    
+}
+
+//MARK: UITextFieldDelegate
+extension ColorSetupViewController: UITextFieldDelegate {
+    private func addToolbar() {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                            target: self,
+                                            action: nil
+        )
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(toolbarDonePressed)
+        )
+        toolBar.items = [flexibleSpace, doneButton]
+        toolBar.sizeToFit()
+        
+        redColorTF.inputAccessoryView = toolBar
+        greenColorTF.inputAccessoryView = toolBar
+        blueColorTF.inputAccessoryView = toolBar
+        
+        redColorTF.delegate = self
+        greenColorTF.delegate = self
+        blueColorTF.delegate = self
+    }
+    
+    @objc private func toolbarDonePressed() {
+        view.endEditing(true)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let textFieldValue = textField.text else { return }
+        guard let floatTFValue = Float(textFieldValue) else { return }
+        
+        switch textField {
+        case redColorTF:
+            redColorSlider.value = floatTFValue
+        case greenColorTF:
+            greenColorSlider.value = floatTFValue
+        default:
+            blueColorSlider.value = floatTFValue
+        }
+        
+        sliderAction()
+    }
+
 }
