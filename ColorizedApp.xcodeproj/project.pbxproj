@@ -13,6 +13,7 @@
 		B31146092865CC4300C5F827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B31146072865CC4300C5F827 /* Main.storyboard */; };
 		B311460B2865CC4500C5F827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B311460A2865CC4500C5F827 /* Assets.xcassets */; };
 		B311460E2865CC4500C5F827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B311460C2865CC4500C5F827 /* LaunchScreen.storyboard */; };
+		B3F33311287EA2A8007CCF83 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F33310287EA2A8007CCF83 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B311460A2865CC4500C5F827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B311460D2865CC4500C5F827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B311460F2865CC4500C5F827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3F33310287EA2A8007CCF83 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				B31146052865CC4300C5F827 /* ColorSetupViewController.swift */,
+				B3F33310287EA2A8007CCF83 /* MainViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				B31146062865CC4300C5F827 /* ColorSetupViewController.swift in Sources */,
 				B31146022865CC4300C5F827 /* AppDelegate.swift in Sources */,
 				B31146042865CC4300C5F827 /* SceneDelegate.swift in Sources */,
+				B3F33311287EA2A8007CCF83 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +317,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DUXW7U8H93;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ColorizedApp/Info.plist;
+				INFOPLIST_FILE = ColorizedApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -342,7 +346,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DUXW7U8H93;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ColorizedApp/Info.plist;
+				INFOPLIST_FILE = ColorizedApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
