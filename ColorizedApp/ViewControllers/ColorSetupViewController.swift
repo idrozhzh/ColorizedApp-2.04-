@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ColorSetupViewController.swift
 //  ColorizedApp
 //
 //  Created by Иван Дрожжин on 24.06.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ColorSetupViewController: UIViewController {
 
     @IBOutlet weak var colorRectView: UIView!
     
