@@ -25,14 +25,14 @@ class ColorSetupViewController: UIViewController {
     
     @IBOutlet weak var doneButton: UIButton!
     
-    var currentColor: UIColor!
+    var currentColor: CIColor!
     var delegate: ColorSetupViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         colorRectView.layer.cornerRadius = 20
-        colorRectView.backgroundColor = currentColor
+        colorRectView.backgroundColor = UIColor(ciColor: currentColor)
         viewSetup()
         
         doneButton.layer.cornerRadius = 10
@@ -56,7 +56,8 @@ class ColorSetupViewController: UIViewController {
         sliderIndexLabelsSetup()
         sliderTextFieldsSetup()
         
-        currentColor = colorRectView.backgroundColor
+        guard let color = colorRectView.backgroundColor else { return }
+        currentColor = CIColor(color: color)
     }
     
     @IBAction func doneButtonAction() {
@@ -81,15 +82,18 @@ extension ColorSetupViewController {
     }
     
     private func sliderViewSetup() {
-        guard
-            let colorComponents = currentColor.cgColor.components
-        else { return }
-        
-        var count = 0
-        for slider in [redColorSlider, greenColorSlider, blueColorSlider] {
-            slider?.value = Float(colorComponents[count])
-            count += 1
-        }
+        redColorSlider.setValue(
+            Float(currentColor.red),
+            animated: false
+        )
+        greenColorSlider.setValue(
+            Float(currentColor.green),
+            animated: false
+        )
+        blueColorSlider.setValue(
+            Float(currentColor.blue),
+            animated: false
+        )
     }
     
     private func viewSetup() {
@@ -98,22 +102,46 @@ extension ColorSetupViewController {
         sliderTextFieldsSetup()
     }
     
+    private func showAlert(textField: UITextField) {
+        let alert = UIAlertController(
+            title: "Ошибка",
+            message: "Введите число в диапазоне от 0 до 1",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            switch textField {
+            case self.redColorTF:
+                textField.text = String(format: "%.2f", self.redColorSlider.value)
+            case self.greenColorTF:
+                textField.text = String(format: "%.2f", self.greenColorSlider.value)
+            default:
+                textField.text = String(format: "%.2f", self.blueColorSlider.value)
+            }
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
     
+    @objc private func toolbarDonePressed() {
+        view.endEditing(true)
+    }
+   
 }
 
 //MARK: UITextFieldDelegate
 extension ColorSetupViewController: UITextFieldDelegate {
     private func addToolbar() {
         let toolBar = UIToolbar()
-        toolBar.barStyle = .default
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                            target: self,
-                                            action: nil
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
         )
-        let doneButton = UIBarButtonItem(title: "Done",
-                                         style: .done,
-                                         target: self,
-                                         action: #selector(toolbarDonePressed)
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(toolbarDonePressed)
         )
         toolBar.items = [flexibleSpace, doneButton]
         toolBar.sizeToFit()
@@ -126,22 +154,18 @@ extension ColorSetupViewController: UITextFieldDelegate {
         greenColorTF.delegate = self
         blueColorTF.delegate = self
     }
-    
-    @objc private func toolbarDonePressed() {
-        view.endEditing(true)
-    }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let textFieldValue = textField.text else { return }
-        guard let floatTFValue = Float(textFieldValue) else { return }
+        guard let textFieldValue = textField.text else { return showAlert(textField: textField) }
+        guard let floatTFValue = Float(textFieldValue) else { return showAlert(textField: textField) }
         
         switch textField {
         case redColorTF:
-            redColorSlider.value = floatTFValue
+            redColorSlider.setValue(floatTFValue, animated: true)
         case greenColorTF:
-            greenColorSlider.value = floatTFValue
+            greenColorSlider.setValue(floatTFValue, animated: true)
         default:
-            blueColorSlider.value = floatTFValue
+            blueColorSlider.setValue(floatTFValue, animated: true)
         }
         
         sliderAction()
